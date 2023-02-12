@@ -116,7 +116,8 @@ void MTIM_DBAbstraction::insertStations() {
 
 void MTIM_DBAbstraction::bookTickit() {
 
-	int userChoice[2];
+	int userChoiceId[2];
+	string userChoiceStation[2];
 
 	system("CLS");
 	cout <<"\n\n"<< endl;
@@ -141,20 +142,99 @@ void MTIM_DBAbstraction::bookTickit() {
 			i++;
 			statusOfStep = sqlite3_step(myStatement);
 		}
+		
+		//Taking usert departing station
 
 		cout << "\t\t\t\t\t__________________________________________________________________" << endl;
 		cout << "\t\t\t\t\tChoose departing station from the options below. \n";
 		cout << "\t\t\t\t\tChoose a number corresponding to the station you want to Select. " << endl;
 		cout << "\t\t\t\t\t__________________________________________________________________" << endl;
-		for (int i = 0; i < 12; i++) {
+		for (i = 0; i < 12; i++) {
 			cout << "\t\t\t\t\t" << stationsId[i] << ".	" << stations[i] << "\n";
 		}
 		cout << "\t\t\t\t\t__________________________________________________________________" << endl;
-		cout << "\n\t\t\t\t\tChoose : ";
-		cin >> userChoice[0];
+		cout << "\n\t\t\t\t\tChoose From : ";
+		cin >> userChoiceId[0];
+		userChoiceStation[0] = stations[userChoiceId[0]-1];
 		cout << endl;
+
+		
+		system("CLS");
+		cout << "\n\n" << endl;
+		metroGraphic("metro_route.txt");
+		cout << "\t\t\t\t\t__________________________________________________________________" << endl;
+		cout << "\t\t\t\t\tChoose arriving station from the options below. \n";
+		cout << "\t\t\t\t\tChoose a number corresponding to the station you want to Select. " << endl;
+		cout << "\t\t\t\t\t__________________________________________________________________" << endl;
+		for (i = 0; i < 12; i++) {
+			cout << "\t\t\t\t\t" << stationsId[i] << ".	" << stations[i] << "\n";
+		}
+		cout << "\t\t\t\t\t__________________________________________________________________" << endl;
+		cout << "\n\t\t\t\t\tChoose To : ";
+		cin >> userChoiceId[1];
+		userChoiceStation[1] = stations[userChoiceId[1]-1];
+		cout << endl;
+		
+
+		
 	}
 	catch (string e) {
 		cout << e << endl;
 	}
+
+	//to get fare
+	int journeyFare = getFare(userChoiceId);
+	// to print recipt
+	recipt(journeyFare, userChoiceStation);
+
+}
+
+int MTIM_DBAbstraction::getFare(int* userChoicesStation) {
+	int fare = 0;
+	int tempResult=0;
+	int departId = userChoicesStation[0];
+	int arriveId = userChoicesStation[1];
+	
+	//checking if user entered 0  
+
+	if (departId == 0 || arriveId == 0) {
+		return 0;
+	}
+	
+	// evaluating tempResult
+
+	if (departId > arriveId) {
+		tempResult = departId - arriveId;
+	}
+	else if (arriveId > departId) {
+		tempResult = arriveId - departId ;
+	}
+	else {
+		return 0;
+	}
+
+	// evaluating fare
+
+	if (tempResult == 1) {
+		fare = 10;
+	}
+	else if (tempResult == 2 || tempResult == 3 || tempResult == 4) {
+		fare = 20;
+	}
+	else if (tempResult == 5 || tempResult == 6 || tempResult == 7 || tempResult == 8) {
+		fare = 30;
+	}
+	else if (tempResult == 9 || tempResult == 10 || tempResult == 11) {
+		fare = 40;
+	}
+	else {
+		fare = 0;
+	}
+
+	return fare;
+}
+
+void MTIM_DBAbstraction::recipt(int fare, string* userChoicesStation) {
+	
+	//code for recipt
 }
