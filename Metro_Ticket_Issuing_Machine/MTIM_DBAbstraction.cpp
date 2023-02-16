@@ -12,7 +12,6 @@ using namespace std;
 MTIM_DBAbstraction::MTIM_DBAbstraction(string pathToFile) : DBAbstraction(pathToFile) {
 
 	//creating table and inserting stations in to one 
-	metroGraphic("metro_route.txt");
 	createStationsTable();
 	createTransactionsTable();
 	insertStations();
@@ -151,7 +150,8 @@ void MTIM_DBAbstraction::bookTickit() {
 	label_1:
 		system("CLS");
 		cout << "\n\n" << endl;
-		metroGraphic("metro_route.txt");
+		metroGraphic("graphics\\metro_route.txt");
+		metroGraphic("graphics\\origin.txt");
 		cout << "\t\t\t\t\t__________________________________________________________________" << endl;
 		cout << "\t\t\t\t\tChoose departing station from the options below. \n";
 		cout << "\t\t\t\t\tChoose a number corresponding to the station you want to Select. " << endl;
@@ -174,7 +174,9 @@ void MTIM_DBAbstraction::bookTickit() {
 
 		system("CLS");
 		cout << "\n\n" << endl;
-		metroGraphic("metro_route.txt");
+		metroGraphic("graphics\\metro_route.txt");
+		metroGraphic("graphics\\destination.txt");
+
 		cout << "\t\t\t\t\t__________________________________________________________________" << endl;
 		cout << "\t\t\t\t\tChoose arriving station from the options below. \n";
 		cout << "\t\t\t\t\tChoose a number corresponding to the station you want to Select. " << endl;
@@ -195,9 +197,6 @@ void MTIM_DBAbstraction::bookTickit() {
 		}
 		cout << endl;
 
-
-
-
 	}
 	catch (string e) {
 		cout << e << endl;
@@ -210,10 +209,7 @@ void MTIM_DBAbstraction::bookTickit() {
 		// to print recipt
 		recipt(journeyFare, userChoiceStation);
 	}
-	
-
-
-
+	return;
 }
 
 int MTIM_DBAbstraction::getFare(int* userChoicesStation) {
@@ -262,9 +258,12 @@ int MTIM_DBAbstraction::getFare(int* userChoicesStation) {
 
 void MTIM_DBAbstraction::recipt(int fare, string* userChoicesStation) {
 
-	system("CLS");
+	
 	time_t now = time(0);		//getting local time 
 	char* date = ctime(&now); 	//Converting toa string 
+	system("CLS");
+	cout << "\n\n" << endl;
+	metroGraphic("graphics\\tickit.txt");
 	cout << "\t\t\t\t\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 	cout << "\t\t\t\t\t|" << setw(36) << "MUMBAI METRO" << setw(27) << "|" << endl;
 	cout << "\t\t\t\t\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
@@ -319,4 +318,10 @@ bool MTIM_DBAbstraction::updateTransaction(string* userChoicesStation, int fare)
 	}
 
 	return retVal;
+}
+
+void MTIM_DBAbstraction::adminLogin() {
+	
+	// will start after learning cryptography for this section.
+
 }
