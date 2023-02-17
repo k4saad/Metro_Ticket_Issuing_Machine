@@ -85,9 +85,9 @@ void MTIM_DBAbstraction::insertStations() {
 			// inserting stations in the table
 			sql = "INSERT INTO stations(id, stationName) VALUES(?,?);";
 			string stations[12] = { "Ghatkopar", "Jagruti Nagar", "Asalpha", "Saki Naka", "Marol Naka", "Airport Road", "Chakala", "Western Express Highway", "Andheri", "Azad Nagar", "D N Nagar", "Versova" };
+			int statusOfPrep = sqlite3_prepare_v2(db, sql.c_str(), -1, &myStatement, NULL);
 			for (int i = 0; i < 12; i++) {
 				
-				int statusOfPrep = sqlite3_prepare_v2(db, sql.c_str(), -1, &myStatement, NULL);
 
 				// adding parameter
 				try{ 
@@ -114,7 +114,10 @@ void MTIM_DBAbstraction::insertStations() {
 					cout << e << endl;
 					return;
 				}
+				sqlite3_reset(myStatement);
+				sqlite3_clear_bindings(myStatement);
 			}
+			sqlite3_finalize(myStatement);
 		}
 	}
 }
