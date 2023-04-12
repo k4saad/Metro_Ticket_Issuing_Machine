@@ -21,8 +21,7 @@ int main()
         cout << "\t\t\t\t\tChoose a number corresponding to the option you want to Select. " << endl;
         cout << "\t\t\t\t\t------------------------------------------------------------------" << endl;
         cout << "\t\t\t\t\t  1. Book Tickit" << endl;
-        cout << "\t\t\t\t\t  2. Admin Login" << endl;
-        cout << "\t\t\t\t\t  3. Exit" << endl;
+        cout << "\t\t\t\t\t  2. Exit" << endl;
 
         cin >> opt;
         cout << "\n" << endl;
@@ -33,9 +32,6 @@ int main()
             Process_1.bookTickit();
             break;
         case 2:
-            Process_1.adminLogin();
-            break;
-        case 3:
             exit(1);
         default:
             break;

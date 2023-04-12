@@ -322,9 +322,3 @@ bool MTIM_DBAbstraction::updateTransaction(string* userChoicesStation, int fare)
 
 	return retVal;
 }
-
-void MTIM_DBAbstraction::adminLogin() {
-	
-	// will start after learning cryptography for this section.
-
-}

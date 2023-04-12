@@ -10,7 +10,6 @@ public:
 	void metroGraphic(string graphicFilePath);
 	int getFare(int* userChoicesId);
 	bool updateTransaction(string* userChoicesStation, int fare);
-	void adminLogin();
 private:
 	void createStationsTable();
 	void createTransactionsTable();
